@@ -36,6 +36,7 @@ h2 {
     margin-bottom: 15px;
     border-radius: 8px;
     overflow: hidden;
+    max-height: 50vh;
 }
 
 #camera {
@@ -65,16 +66,19 @@ h2 {
     align-items: center;
     border-radius: 8px;
     z-index: 10;
+    overflow: hidden;
 }
 
 .scanning-line {
     position: absolute;
     top: 0;
+    left: 0;
     height: 100%;
     width: 2px;
     background-color: #3498db;
     box-shadow: 0 0 8px #3498db;
     transition: left 3s linear;
+    z-index: 15;
 }
 
 .scanning-text {

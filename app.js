@@ -228,8 +228,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Create and add scanning overlay
         const overlay = createScanningOverlay();
-        const cameraSection = document.querySelector('.camera-section');
-        cameraSection.appendChild(overlay);
+        const cameraContainer = document.querySelector('.camera-container');
+        cameraContainer.appendChild(overlay);
         
         // Animate the scanning line
         const scanningLine = overlay.querySelector('.scanning-line');
