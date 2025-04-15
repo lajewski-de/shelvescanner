@@ -104,18 +104,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Simulate book detection
     function simulateBookDetection() {
-        // Randomly select 2-4 books from our mock data
-        const numBooks = Math.floor(Math.random() * 3) + 2;
-        const detectedBooks = [];
+        const scanningOverlay = document.createElement('div');
+        scanningOverlay.className = 'scanning-overlay';
         
-        for (let i = 0; i < numBooks; i++) {
-            const randomBook = mockBooks[Math.floor(Math.random() * mockBooks.length)];
-            if (!detectedBooks.find(book => book.id === randomBook.id)) {
-                detectedBooks.push(randomBook);
-            }
-        }
+        const scanningLine = document.createElement('div');
+        scanningLine.className = 'scanning-line';
         
-        return detectedBooks;
+        const scanningText = document.createElement('div');
+        scanningText.className = 'scanning-text';
+        scanningText.textContent = 'Scanning books...';
+        
+        scanningOverlay.appendChild(scanningLine);
+        scanningOverlay.appendChild(scanningText);
+        cameraContainer.appendChild(scanningOverlay);
+        
+        // Start the scanning animation
+        setTimeout(() => {
+            scanningLine.style.left = '100%';
+            
+            // Create price tags at different heights as the line moves
+            const tagPositions = [20, 40, 60, 80]; // Fixed positions for price tags
+            tagPositions.forEach((position, index) => {
+                setTimeout(() => {
+                    const price = generateRandomPrice();
+                    const tag = createPriceTag(price, position);
+                    scanningOverlay.appendChild(tag);
+                }, index * 1500); // Stagger the appearance of price tags
+            });
+        }, 100);
+        
+        // After scanning completes, show the detected books
+        setTimeout(() => {
+            cameraContainer.removeChild(scanningOverlay);
+            displayDetectedBooks();
+        }, 6000);
     }
 
     // Display detected books
@@ -215,11 +237,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Create price tag element
-    function createPriceTag(price) {
-        const priceTag = document.createElement('div');
-        priceTag.className = 'price-tag';
-        priceTag.textContent = `€${price}`;
-        return priceTag;
+    function createPriceTag(price, top) {
+        const tag = document.createElement('div');
+        tag.className = 'price-tag';
+        tag.textContent = price;
+        tag.style.top = `${top}%`;
+        tag.style.left = '50%'; // Position in the middle of the screen
+        return tag;
     }
 
     // Start scanning animation
@@ -250,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         for (let i = 0; i < numPriceTags; i++) {
             const price = generateRandomPrice();
-            const priceTag = createPriceTag(price);
+            const priceTag = createPriceTag(price, 20 + (i * 20));
             overlay.appendChild(priceTag);
             priceTags.push(priceTag);
             
