@@ -15,21 +15,22 @@
     <div class="container">
         <h1>Shelve Scanner</h1>
         
-        <div id="camera-container">
+        <div class="camera-section">
             <video id="camera" autoplay playsinline></video>
-            <div class="bookshelf-overlay">
-                <div class="book" style="--rotation: -5deg; left: 10%; bottom: 20px;"></div>
-                <div class="book" style="--rotation: 3deg; left: 25%; bottom: 20px;"></div>
-                <div class="book" style="--rotation: -2deg; left: 40%; bottom: 20px;"></div>
-                <div class="book" style="--rotation: 4deg; left: 55%; bottom: 20px;"></div>
-                <div class="book" style="--rotation: -3deg; left: 70%; bottom: 20px;"></div>
-            </div>
-            <div class="scanning-overlay">
-                <div class="scanning-line"></div>
-                <div class="progress-container">
-                    <div class="progress-bar"></div>
+            <div class="bookshelf-guide">
+                <div class="bookshelf-row">
+                    <div class="book-spine"></div>
+                    <div class="book-spine"></div>
+                    <div class="book-spine"></div>
+                    <div class="book-spine"></div>
+                    <div class="book-spine"></div>
+                    <div class="book-spine"></div>
+                    <div class="book-spine"></div>
+                    <div class="book-spine"></div>
                 </div>
+                <div class="guide-text">Position your camera to align with the bookshelf</div>
             </div>
+            <button id="scanButton" class="primary-button">Scan Bookshelf</button>
         </div>
 
         <div class="results-section" id="resultsSection" style="display: none;">
