@@ -42,6 +42,10 @@ h2 {
     border-radius: 8px;
     background-color: #000;
     margin-bottom: 15px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 /* Scanning overlay styles */
@@ -351,6 +355,7 @@ h2 {
     }
 }
 
+/* Hide video controls for all browsers */
 video::-webkit-media-controls {
     display: none !important;
 }
@@ -388,5 +393,27 @@ video::-webkit-media-controls-volume-slider {
 }
 
 video::-webkit-media-controls-fullscreen-button {
+    display: none !important;
+}
+
+/* Firefox */
+video::-moz-range-track {
+    display: none !important;
+}
+
+video::-moz-range-thumb {
+    display: none !important;
+}
+
+/* Edge */
+video::-ms-fill-lower {
+    display: none !important;
+}
+
+video::-ms-fill-upper {
+    display: none !important;
+}
+
+video::-ms-thumb {
     display: none !important;
 } 
