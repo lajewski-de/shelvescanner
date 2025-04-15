@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let stream = null;
     let cart = [];
+    let isScanning = false;
 
     // Mock book data for prototype
     const mockBooks = [
@@ -197,12 +198,68 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Create scanning overlay
+    function createScanningOverlay() {
+        const overlay = document.createElement('div');
+        overlay.className = 'scanning-overlay';
+        overlay.innerHTML = `
+            <div class="scanning-line"></div>
+            <div class="scanning-text">Scanning bookshelf...</div>
+            <div class="scanning-progress">
+                <div class="progress-bar"></div>
+            </div>
+        `;
+        return overlay;
+    }
+
+    // Start scanning animation
+    function startScanning() {
+        if (isScanning) return;
+        
+        isScanning = true;
+        scanButton.disabled = true;
+        scanButton.textContent = 'Scanning...';
+        
+        // Create and add scanning overlay
+        const overlay = createScanningOverlay();
+        const cameraSection = document.querySelector('.camera-section');
+        cameraSection.appendChild(overlay);
+        
+        // Animate the scanning line
+        const scanningLine = overlay.querySelector('.scanning-line');
+        const progressBar = overlay.querySelector('.progress-bar');
+        
+        // Animate the scanning line from top to bottom
+        scanningLine.style.top = '0%';
+        setTimeout(() => {
+            scanningLine.style.top = '100%';
+        }, 100);
+        
+        // Animate the progress bar
+        progressBar.style.width = '0%';
+        setTimeout(() => {
+            progressBar.style.width = '100%';
+        }, 100);
+        
+        // Simulate scanning time (3 seconds)
+        setTimeout(() => {
+            // Remove scanning overlay
+            overlay.remove();
+            
+            // Show results
+            const detectedBooks = simulateBookDetection();
+            displayBooks(detectedBooks);
+            resultsSection.style.display = 'block';
+            
+            // Reset button
+            scanButton.disabled = false;
+            scanButton.textContent = 'Scan Bookshelf';
+            isScanning = false;
+        }, 3000);
+    }
+
     // Scan button click handler
-    scanButton.addEventListener('click', function() {
-        const detectedBooks = simulateBookDetection();
-        displayBooks(detectedBooks);
-        resultsSection.style.display = 'block';
-    });
+    scanButton.addEventListener('click', startScanning);
 
     // Initialize camera when page loads
     initCamera();
