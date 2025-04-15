@@ -1,9 +1,9 @@
-const CACHE_NAME = 'shelve-scanner-v1';
+const CACHE_NAME = 'shelve-scanner-v1.1';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/styles.css',
-  '/app.js',
+  '/styles.css?v=1.1',
+  '/app.js?v=1.1',
   '/images/icon16.png',
   '/images/icon48.png',
   '/images/icon128.png'
