@@ -128,27 +128,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Display detected books
     function displayBooks(books) {
         booksList.innerHTML = '';
+        
+        // Calculate total price of detected books
+        const total = books.reduce((sum, book) => sum + book.price, 0);
+        document.getElementById('detectedTotal').textContent = `Total: €${total.toFixed(2)}`;
+        
         books.forEach(book => {
             const bookElement = document.createElement('div');
             bookElement.className = 'book-item';
             bookElement.innerHTML = `
                 <div class="book-info">
-                    <div class="book-title">${book.title}</div>
-                    <div class="book-price">€${book.price.toFixed(2)}</div>
+                    <h3>${book.title}</h3>
+                    <p class="book-price">€${book.price.toFixed(2)}</p>
                 </div>
-                <button class="add-to-cart" data-book-id="${book.id}">Add to Cart</button>
+                <button class="add-to-cart" onclick="addToCart(${book.id})">Add to Cart</button>
             `;
             booksList.appendChild(bookElement);
         });
-
-        // Add event listeners to "Add to Cart" buttons
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', function() {
-                const bookId = parseInt(this.getAttribute('data-book-id'));
-                const book = books.find(b => b.id === bookId);
-                addToCart(book);
-            });
-        });
+        
+        resultsSection.style.display = 'block';
     }
 
     // Add book to cart

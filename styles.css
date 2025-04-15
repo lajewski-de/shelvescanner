@@ -428,8 +428,17 @@ video::-ms-thumb {
     display: none !important;
 }
 
+.detected-total {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 15px 0;
+    color: #333;
+    text-align: right;
+    padding: 0 10px;
+}
+
 #addAllToCart {
-    margin: 20px 0;
+    margin: 10px 0 20px 0;
     width: 100%;
     padding: 12px;
     background-color: #4CAF50;
