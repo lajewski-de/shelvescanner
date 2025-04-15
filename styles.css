@@ -30,9 +30,12 @@ h2 {
     margin: 15px 0;
 }
 
-.camera-section {
-    margin-bottom: 20px;
+.camera-container {
     position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 #camera {
@@ -41,7 +44,7 @@ h2 {
     max-height: 50vh;
     border-radius: 8px;
     background-color: #000;
-    margin-bottom: 15px;
+    display: block;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -279,18 +282,21 @@ h2 {
     align-items: center;
     width: 80%;
     height: 60%;
-    background-color: rgba(0, 0, 0, 0.2);
-    border: 2px dashed rgba(255, 255, 255, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 2px dashed rgba(255, 255, 255, 0.7);
     border-radius: 8px;
     padding: 10px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .book-spine {
     height: 100%;
     width: 8%;
     margin: 0 1%;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.4);
     border-radius: 2px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .guide-text {
