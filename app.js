@@ -33,10 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     } 
                 });
                 video.srcObject = stream;
-                
-                // Add bookshelf overlay after camera is initialized
-                addBookshelfOverlay();
-                
                 return true;
             } else {
                 console.error('getUserMedia is not supported in this browser');
@@ -54,36 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             return false;
         }
-    }
-
-    // Add bookshelf overlay to guide users
-    function addBookshelfOverlay() {
-        const cameraSection = document.querySelector('.camera-section');
-        
-        // Create bookshelf overlay
-        const overlay = document.createElement('div');
-        overlay.className = 'bookshelf-overlay';
-        
-        // Create bookshelf guide
-        const guide = document.createElement('div');
-        guide.className = 'bookshelf-guide';
-        
-        // Create book spines (10 books)
-        for (let i = 0; i < 10; i++) {
-            const spine = document.createElement('div');
-            spine.className = 'book-spine';
-            guide.appendChild(spine);
-        }
-        
-        // Add guide text
-        const guideText = document.createElement('div');
-        guideText.className = 'guide-text';
-        guideText.textContent = 'Position your camera to capture the bookshelf with spines visible';
-        
-        // Assemble the overlay
-        overlay.appendChild(guide);
-        overlay.appendChild(guideText);
-        cameraSection.appendChild(overlay);
     }
 
     // Show permission request UI
@@ -249,49 +215,66 @@ document.addEventListener('DOMContentLoaded', function() {
     // Start scanning animation
     function startScanning() {
         if (isScanning) return;
+        
         isScanning = true;
         scanButton.disabled = true;
         scanButton.textContent = 'Scanning...';
-
-        const cameraSection = document.querySelector('.camera-section');
+        
+        // Hide the bookshelf overlay during scanning
+        const bookshelfOverlay = document.querySelector('.bookshelf-overlay');
+        if (bookshelfOverlay) {
+            bookshelfOverlay.style.display = 'none';
+        }
+        
+        // Create and add scanning overlay
         const overlay = createScanningOverlay();
+        const cameraSection = document.querySelector('.camera-section');
         cameraSection.appendChild(overlay);
-
-        // Animate scanning line
+        
+        // Animate the scanning line
         const scanningLine = overlay.querySelector('.scanning-line');
         const progressBar = overlay.querySelector('.progress-bar');
         
+        // Animate the scanning line from left to right
         scanningLine.style.left = '0%';
-        progressBar.style.width = '0%';
-        
         setTimeout(() => {
             scanningLine.style.left = '100%';
+        }, 100);
+        
+        // Animate the progress bar
+        progressBar.style.width = '0%';
+        setTimeout(() => {
             progressBar.style.width = '100%';
         }, 100);
-
-        // Simulate scanning process
+        
+        // Simulate scanning time (3 seconds)
         setTimeout(() => {
+            // Remove scanning overlay
+            overlay.remove();
+            
+            // Show results
             const detectedBooks = simulateBookDetection();
             displayBooks(detectedBooks);
             resultsSection.style.display = 'block';
-            cameraSection.removeChild(overlay);
-            isScanning = false;
+            
+            // Reset button
             scanButton.disabled = false;
             scanButton.textContent = 'Scan Bookshelf';
+            isScanning = false;
+            
+            // Show the bookshelf overlay again after scanning
+            if (bookshelfOverlay) {
+                bookshelfOverlay.style.display = 'flex';
+            }
         }, 3000);
     }
 
-    // Initialize the app
-    async function init() {
-        const success = await initCamera();
-        if (success) {
-            loadCart();
-            
-            // Add scan button event listener
-            scanButton.addEventListener('click', startScanning);
-        }
-    }
+    // Scan button click handler
+    scanButton.addEventListener('click', startScanning);
 
-    // Start the app
-    init();
+    // Initialize camera when page loads
+    initCamera();
+    
+    // Load cart from local storage
+    loadCart();
 }); 
