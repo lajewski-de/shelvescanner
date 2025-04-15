@@ -16,7 +16,12 @@
         <h1>Shelve Scanner</h1>
         
         <div class="camera-section">
-            <video id="camera" autoplay playsinline></video>
+            <div class="camera-container">
+                <video id="camera" autoplay playsinline controlsList="nodownload" controls="false"></video>
+                <div class="camera-overlay">
+                    <div class="scanning-line"></div>
+                </div>
+            </div>
             <div class="bookshelf-guide">
                 <div class="bookshelf-row">
                     <div class="book-spine"></div>
