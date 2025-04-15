@@ -301,4 +301,15 @@ h2 {
     .scanning-text {
         font-size: 16px;
     }
+}
+
+/* Add a visual indicator for books */
+.book-indicator {
+    position: absolute;
+    width: 30px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    z-index: 10;
 } 

@@ -118,18 +118,38 @@ document.addEventListener('DOMContentLoaded', function() {
         scanningOverlay.appendChild(scanningText);
         cameraContainer.appendChild(scanningOverlay);
         
+        // Simulate a bookshelf with up to 20 books
+        const numBooks = Math.floor(Math.random() * 15) + 5; // 5-20 books
+        const bookPositions = [];
+        
+        // Generate random positions for books (evenly distributed)
+        for (let i = 0; i < numBooks; i++) {
+            // Position books between 10% and 90% of the screen height
+            const position = 10 + (i * 80 / numBooks);
+            bookPositions.push(position);
+            
+            // Add visual indicator for each book
+            const bookIndicator = document.createElement('div');
+            bookIndicator.className = 'book-indicator';
+            bookIndicator.style.top = `${position - 40}px`; // Center the book vertically
+            bookIndicator.style.left = '20%'; // Position books on the left side
+            scanningOverlay.appendChild(bookIndicator);
+        }
+        
         // Start the scanning animation
         setTimeout(() => {
             scanningLine.style.left = '100%';
             
-            // Create price tags at different heights as the line moves
-            const tagPositions = [20, 40, 60, 80]; // Fixed positions for price tags
-            tagPositions.forEach((position, index) => {
+            // Create price tags as the scanning line moves
+            bookPositions.forEach((position, index) => {
+                // Calculate when to show each price tag based on scanning progress
+                const delay = 100 + (index * 5500 / numBooks);
+                
                 setTimeout(() => {
                     const price = generateRandomPrice();
                     const tag = createPriceTag(price, position);
                     scanningOverlay.appendChild(tag);
-                }, index * 1500); // Stagger the appearance of price tags
+                }, delay);
             });
         }, 100);
         
@@ -242,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function() {
         tag.className = 'price-tag';
         tag.textContent = price;
         tag.style.top = `${top}%`;
-        tag.style.left = '50%'; // Position in the middle of the screen
+        tag.style.left = '60%'; // Position to the right of the scanning line
         return tag;
     }
 
