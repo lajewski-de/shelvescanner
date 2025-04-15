@@ -18,30 +18,14 @@
         <div class="camera-section">
             <div class="camera-container">
                 <video id="camera" autoplay playsinline controlsList="nodownload" controls="false"></video>
-                <div class="bookshelf-guide">
-                    <div class="bookshelf-row">
-                        <div class="book-placeholder"></div>
-                        <div class="book-placeholder"></div>
-                        <div class="book-placeholder"></div>
-                        <div class="book-placeholder"></div>
-                        <div class="book-placeholder"></div>
-                    </div>
-                    <div class="bookshelf-row">
-                        <div class="book-placeholder"></div>
-                        <div class="book-placeholder"></div>
-                        <div class="book-placeholder"></div>
-                        <div class="book-placeholder"></div>
-                        <div class="book-placeholder"></div>
-                    </div>
-                    <div class="bookshelf-row">
-                        <div class="book-placeholder"></div>
-                        <div class="book-placeholder"></div>
-                        <div class="book-placeholder"></div>
-                        <div class="book-placeholder"></div>
-                        <div class="book-placeholder"></div>
-                    </div>
-                    <div class="guide-text">Position your camera to align with the bookshelf</div>
+                <div class="camera-overlay">
+                    <div class="scanning-line"></div>
                 </div>
+            </div>
+            <div class="bookshelf-guide">
+                <div class="bookshelf-row"></div>
+                <div class="bookshelf-row"></div>
+                <div class="bookshelf-row"></div>
             </div>
             <button id="scanButton" class="primary-button">Scan Bookshelf</button>
         </div>
