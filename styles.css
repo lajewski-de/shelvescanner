@@ -62,12 +62,12 @@ h2 {
 
 .scanning-line {
     position: absolute;
-    left: 0;
-    width: 100%;
-    height: 2px;
+    top: 0;
+    height: 100%;
+    width: 2px;
     background-color: #3498db;
     box-shadow: 0 0 8px #3498db;
-    transition: top 3s linear;
+    transition: left 3s linear;
 }
 
 .scanning-text {

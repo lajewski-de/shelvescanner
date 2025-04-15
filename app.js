@@ -229,10 +229,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const scanningLine = overlay.querySelector('.scanning-line');
         const progressBar = overlay.querySelector('.progress-bar');
         
-        // Animate the scanning line from top to bottom
-        scanningLine.style.top = '0%';
+        // Animate the scanning line from left to right
+        scanningLine.style.left = '0%';
         setTimeout(() => {
-            scanningLine.style.top = '100%';
+            scanningLine.style.left = '100%';
         }, 100);
         
         // Animate the progress bar
