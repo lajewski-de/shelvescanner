@@ -310,7 +310,6 @@ h2 {
     border-radius: 20px;
     text-align: center;
     max-width: 80%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Mobile-specific styles */
@@ -361,6 +360,8 @@ h2 {
     
     .guide-text {
         font-size: 14px;
+        padding: 6px 12px;
+        max-width: 90%;
     }
 }
 
