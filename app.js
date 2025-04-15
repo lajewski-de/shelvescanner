@@ -250,6 +250,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function startScanning() {
         if (isScanning) return;
         isScanning = true;
+        scanButton.disabled = true;
+        scanButton.textContent = 'Scanning...';
 
         const cameraSection = document.querySelector('.camera-section');
         const overlay = createScanningOverlay();
@@ -274,6 +276,8 @@ document.addEventListener('DOMContentLoaded', function() {
             resultsSection.style.display = 'block';
             cameraSection.removeChild(overlay);
             isScanning = false;
+            scanButton.disabled = false;
+            scanButton.textContent = 'Scan Bookshelf';
         }, 3000);
     }
 
