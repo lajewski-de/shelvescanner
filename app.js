@@ -33,6 +33,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     } 
                 });
                 video.srcObject = stream;
+                
+                // Add bookshelf overlay after camera is initialized
+                addBookshelfOverlay();
+                
                 return true;
             } else {
                 console.error('getUserMedia is not supported in this browser');
@@ -50,6 +54,36 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             return false;
         }
+    }
+
+    // Add bookshelf overlay to guide users
+    function addBookshelfOverlay() {
+        const cameraSection = document.querySelector('.camera-section');
+        
+        // Create bookshelf overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'bookshelf-overlay';
+        
+        // Create bookshelf guide
+        const guide = document.createElement('div');
+        guide.className = 'bookshelf-guide';
+        
+        // Create book spines (10 books)
+        for (let i = 0; i < 10; i++) {
+            const spine = document.createElement('div');
+            spine.className = 'book-spine';
+            guide.appendChild(spine);
+        }
+        
+        // Add guide text
+        const guideText = document.createElement('div');
+        guideText.className = 'guide-text';
+        guideText.textContent = 'Position your camera to capture the bookshelf with spines visible';
+        
+        // Assemble the overlay
+        overlay.appendChild(guide);
+        overlay.appendChild(guideText);
+        cameraSection.appendChild(overlay);
     }
 
     // Show permission request UI
