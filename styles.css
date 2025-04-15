@@ -365,12 +365,8 @@ h2 {
     }
 }
 
-/* Hide video controls for all browsers */
+/* Hide video controls */
 video::-webkit-media-controls {
-    display: none !important;
-}
-
-video::-webkit-media-controls-enclosure {
     display: none !important;
 }
 
@@ -425,6 +421,47 @@ video::-ms-fill-upper {
 }
 
 video::-ms-thumb {
+    display: none !important;
+}
+
+/* Hide controls when video is paused */
+video[controls]:not([playing]) {
+    &::-webkit-media-controls-panel {
+        display: none !important;
+    }
+}
+
+/* Additional rules to ensure controls are hidden */
+video::-webkit-media-controls-enclosure {
+    display: none !important;
+}
+
+video::-webkit-media-controls-overlay-play-button {
+    display: none !important;
+}
+
+video::-webkit-media-controls-start-playback-button {
+    display: none !important;
+}
+
+video::-webkit-media-controls-toggle-closed-captions-button {
+    display: none !important;
+}
+
+/* Hide controls in fullscreen mode */
+video:fullscreen::-webkit-media-controls {
+    display: none !important;
+}
+
+video:-webkit-full-screen::-webkit-media-controls {
+    display: none !important;
+}
+
+video:-moz-full-screen::-webkit-media-controls {
+    display: none !important;
+}
+
+video:-ms-fullscreen::-webkit-media-controls {
     display: none !important;
 }
 
