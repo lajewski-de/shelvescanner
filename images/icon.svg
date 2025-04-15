@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect x="10" y="10" width="108" height="108" rx="20" fill="#3498db"/>
+  
+  <!-- Bookshelf -->
+  <rect x="30" y="40" width="68" height="50" rx="5" fill="#2c3e50"/>
+  
+  <!-- Books -->
+  <rect x="35" y="45" width="8" height="40" fill="#e74c3c"/>
+  <rect x="48" y="45" width="8" height="40" fill="#2ecc71"/>
+  <rect x="61" y="45" width="8" height="40" fill="#f1c40f"/>
+  <rect x="74" y="45" width="8" height="40" fill="#9b59b6"/>
+  
+  <!-- Scanner beam -->
+  <path d="M64 20 L64 35" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="64" cy="20" r="5" fill="#ffffff"/>
+</svg> 

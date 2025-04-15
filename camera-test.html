@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Camera Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        video {
+            width: 100%;
+            max-width: 640px;
+            border: 1px solid #ccc;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .error {
+            color: #e74c3c;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Camera Test</h1>
+    <p>This page tests if your browser can access the camera. If this works, the issue is with the Chrome extension permissions.</p>
+    
+    <button id="startCamera">Start Camera</button>
+    <button id="stopCamera">Stop Camera</button>
+    
+    <div id="errorMessage" class="error"></div>
+    
+    <video id="video" autoplay playsinline></video>
+    
+    <script>
+        const video = document.getElementById('video');
+        const startButton = document.getElementById('startCamera');
+        const stopButton = document.getElementById('stopCamera');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        let stream = null;
+        
+        startButton.addEventListener('click', async () => {
+            try {
+                errorMessage.textContent = '';
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'environment' } 
+                });
+                video.srcObject = stream;
+            } catch (err) {
+                console.error('Error accessing camera:', err);
+                errorMessage.textContent = `Error: ${err.message}`;
+                
+                if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+                    errorMessage.textContent += '\n\nPlease check your browser settings and ensure camera permissions are granted.';
+                }
+            }
+        });
+        
+        stopButton.addEventListener('click', () => {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                video.srcObject = null;
+                stream = null;
+            }
+        });
+    </script>
+</body>
+</html> 

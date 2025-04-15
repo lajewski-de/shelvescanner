@@ -1,0 +1,11 @@
+{
+  "name": "shelve-scanner",
+  "version": "1.0.0",
+  "description": "Chrome extension for scanning bookshelves and selling second-hand books",
+  "scripts": {
+    "generate-icons": "node convert-icons.js"
+  },
+  "dependencies": {
+    "sharp": "^0.32.1"
+  }
+} 

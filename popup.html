@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shelve Scanner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Shelve Scanner</h1>
+        
+        <div class="camera-section">
+            <video id="camera" autoplay playsinline></video>
+            <button id="scanButton" class="primary-button">Scan Bookshelf</button>
+        </div>
+
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <h2>Detected Books</h2>
+            <div id="booksList" class="books-list"></div>
+            
+            <div class="cart-section">
+                <h2>Selling Cart</h2>
+                <div id="cartItems" class="cart-items"></div>
+                <div class="cart-total">
+                    <span>Total Value:</span>
+                    <span id="totalValue">$0.00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html> 
