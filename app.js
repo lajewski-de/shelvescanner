@@ -249,55 +249,45 @@ document.addEventListener('DOMContentLoaded', function() {
     // Start scanning animation
     function startScanning() {
         if (isScanning) return;
-        
         isScanning = true;
-        scanButton.disabled = true;
-        scanButton.textContent = 'Scanning...';
-        
-        // Create and add scanning overlay
-        const overlay = createScanningOverlay();
+
         const cameraSection = document.querySelector('.camera-section');
+        const overlay = createScanningOverlay();
         cameraSection.appendChild(overlay);
-        
-        // Animate the scanning line
+
+        // Animate scanning line
         const scanningLine = overlay.querySelector('.scanning-line');
         const progressBar = overlay.querySelector('.progress-bar');
         
-        // Animate the scanning line from left to right
         scanningLine.style.left = '0%';
+        progressBar.style.width = '0%';
+        
         setTimeout(() => {
             scanningLine.style.left = '100%';
-        }, 100);
-        
-        // Animate the progress bar
-        progressBar.style.width = '0%';
-        setTimeout(() => {
             progressBar.style.width = '100%';
         }, 100);
-        
-        // Simulate scanning time (3 seconds)
+
+        // Simulate scanning process
         setTimeout(() => {
-            // Remove scanning overlay
-            overlay.remove();
-            
-            // Show results
             const detectedBooks = simulateBookDetection();
             displayBooks(detectedBooks);
             resultsSection.style.display = 'block';
-            
-            // Reset button
-            scanButton.disabled = false;
-            scanButton.textContent = 'Scan Bookshelf';
+            cameraSection.removeChild(overlay);
             isScanning = false;
         }, 3000);
     }
 
-    // Scan button click handler
-    scanButton.addEventListener('click', startScanning);
+    // Initialize the app
+    async function init() {
+        const success = await initCamera();
+        if (success) {
+            loadCart();
+            
+            // Add scan button event listener
+            scanButton.addEventListener('click', startScanning);
+        }
+    }
 
-    // Initialize camera when page loads
-    initCamera();
-    
-    // Load cart from local storage
-    loadCart();
+    // Start the app
+    init();
 }); 
