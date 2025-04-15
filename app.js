@@ -104,60 +104,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Simulate book detection
     function simulateBookDetection() {
-        const scanningOverlay = document.createElement('div');
-        scanningOverlay.className = 'scanning-overlay';
+        // Randomly select 2-4 books from our mock data
+        const numBooks = Math.floor(Math.random() * 3) + 2;
+        const detectedBooks = [];
         
-        const scanningLine = document.createElement('div');
-        scanningLine.className = 'scanning-line';
-        
-        const scanningText = document.createElement('div');
-        scanningText.className = 'scanning-text';
-        scanningText.textContent = 'Scanning books...';
-        
-        scanningOverlay.appendChild(scanningLine);
-        scanningOverlay.appendChild(scanningText);
-        cameraContainer.appendChild(scanningOverlay);
-        
-        // Simulate a bookshelf with up to 20 books
-        const numBooks = Math.floor(Math.random() * 15) + 5; // 5-20 books
-        const bookPositions = [];
-        
-        // Generate random positions for books (evenly distributed)
         for (let i = 0; i < numBooks; i++) {
-            // Position books between 10% and 90% of the screen height
-            const position = 10 + (i * 80 / numBooks);
-            bookPositions.push(position);
-            
-            // Add visual indicator for each book
-            const bookIndicator = document.createElement('div');
-            bookIndicator.className = 'book-indicator';
-            bookIndicator.style.top = `${position - 40}px`; // Center the book vertically
-            bookIndicator.style.left = '20%'; // Position books on the left side
-            scanningOverlay.appendChild(bookIndicator);
+            const randomBook = mockBooks[Math.floor(Math.random() * mockBooks.length)];
+            if (!detectedBooks.find(book => book.id === randomBook.id)) {
+                detectedBooks.push(randomBook);
+            }
         }
         
-        // Start the scanning animation
-        setTimeout(() => {
-            scanningLine.style.left = '100%';
-            
-            // Create price tags as the scanning line moves
-            bookPositions.forEach((position, index) => {
-                // Calculate when to show each price tag based on scanning progress
-                const delay = 100 + (index * 5500 / numBooks);
-                
-                setTimeout(() => {
-                    const price = generateRandomPrice();
-                    const tag = createPriceTag(price, position);
-                    scanningOverlay.appendChild(tag);
-                }, delay);
-            });
-        }, 100);
-        
-        // After scanning completes, show the detected books
-        setTimeout(() => {
-            cameraContainer.removeChild(scanningOverlay);
-            displayDetectedBooks();
-        }, 6000);
+        return detectedBooks;
     }
 
     // Display detected books
@@ -247,23 +205,11 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay.innerHTML = `
             <div class="scanning-line"></div>
             <div class="scanning-text">Scanning bookshelf...</div>
+            <div class="scanning-progress">
+                <div class="progress-bar"></div>
+            </div>
         `;
         return overlay;
-    }
-
-    // Generate random price in EUR
-    function generateRandomPrice() {
-        return (Math.random() * 20).toFixed(2);
-    }
-
-    // Create price tag element
-    function createPriceTag(price, top) {
-        const tag = document.createElement('div');
-        tag.className = 'price-tag';
-        tag.textContent = price;
-        tag.style.top = `${top}%`;
-        tag.style.left = '60%'; // Position to the right of the scanning line
-        return tag;
     }
 
     // Start scanning animation
@@ -281,6 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Animate the scanning line
         const scanningLine = overlay.querySelector('.scanning-line');
+        const progressBar = overlay.querySelector('.progress-bar');
         
         // Animate the scanning line from left to right
         scanningLine.style.left = '0%';
@@ -288,30 +235,13 @@ document.addEventListener('DOMContentLoaded', function() {
             scanningLine.style.left = '100%';
         }, 100);
         
-        // Create and animate price tags
-        const priceTags = [];
-        const numPriceTags = 5;
+        // Animate the progress bar
+        progressBar.style.width = '0%';
+        setTimeout(() => {
+            progressBar.style.width = '100%';
+        }, 100);
         
-        for (let i = 0; i < numPriceTags; i++) {
-            const price = generateRandomPrice();
-            const priceTag = createPriceTag(price, 20 + (i * 20));
-            overlay.appendChild(priceTag);
-            priceTags.push(priceTag);
-            
-            // Position price tags at random heights
-            const randomTop = Math.random() * 80 + 10; // 10% to 90% from top
-            priceTag.style.top = `${randomTop}%`;
-            
-            // Animate price tags to follow the scanning line
-            setTimeout(() => {
-                priceTag.style.left = '0%';
-                setTimeout(() => {
-                    priceTag.style.left = '100%';
-                }, 100);
-            }, i * 1000); // Stagger the appearance of price tags
-        }
-        
-        // Simulate scanning time (6 seconds)
+        // Simulate scanning time (3 seconds)
         setTimeout(() => {
             // Remove scanning overlay
             overlay.remove();
@@ -325,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
             scanButton.disabled = false;
             scanButton.textContent = 'Scan Bookshelf';
             isScanning = false;
-        }, 6000);
+        }, 3000);
     }
 
     // Scan button click handler
