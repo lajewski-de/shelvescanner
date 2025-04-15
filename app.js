@@ -198,79 +198,53 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Create scanning overlay
-    function createScanningOverlay() {
-        const overlay = document.createElement('div');
-        overlay.className = 'scanning-overlay';
-        overlay.innerHTML = `
-            <div class="scanning-line"></div>
-            <div class="scanning-text">Scanning bookshelf...</div>
-            <div class="scanning-progress">
-                <div class="progress-bar"></div>
-            </div>
-        `;
-        return overlay;
-    }
+    // Scanning animation and overlay handling
+    const scanningOverlay = document.querySelector('.scanning-overlay');
+    const scanningLine = document.querySelector('.scanning-line');
+    const progressBar = document.querySelector('.progress-bar');
+    const bookshelfOverlay = document.querySelector('.bookshelf-overlay');
 
-    // Start scanning animation
     function startScanning() {
-        if (isScanning) return;
+        scanningOverlay.style.display = 'block';
+        bookshelfOverlay.style.opacity = '0.5';
         
-        isScanning = true;
-        scanButton.disabled = true;
-        scanButton.textContent = 'Scanning...';
-        
-        // Hide the bookshelf overlay during scanning
-        const bookshelfOverlay = document.querySelector('.bookshelf-overlay');
-        if (bookshelfOverlay) {
-            bookshelfOverlay.style.display = 'none';
-        }
-        
-        // Create and add scanning overlay
-        const overlay = createScanningOverlay();
-        const cameraSection = document.querySelector('.camera-section');
-        cameraSection.appendChild(overlay);
-        
-        // Animate the scanning line
-        const scanningLine = overlay.querySelector('.scanning-line');
-        const progressBar = overlay.querySelector('.progress-bar');
-        
-        // Animate the scanning line from left to right
-        scanningLine.style.left = '0%';
-        setTimeout(() => {
-            scanningLine.style.left = '100%';
-        }, 100);
-        
-        // Animate the progress bar
+        // Reset progress
         progressBar.style.width = '0%';
-        setTimeout(() => {
-            progressBar.style.width = '100%';
-        }, 100);
         
-        // Simulate scanning time (3 seconds)
-        setTimeout(() => {
-            // Remove scanning overlay
-            overlay.remove();
+        // Start scanning line animation
+        scanningLine.style.animation = 'scan 2s linear';
+        
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 1;
+            progressBar.style.width = `${progress}%`;
             
-            // Show results
-            const detectedBooks = simulateBookDetection();
-            displayBooks(detectedBooks);
-            resultsSection.style.display = 'block';
-            
-            // Reset button
-            scanButton.disabled = false;
-            scanButton.textContent = 'Scan Bookshelf';
-            isScanning = false;
-            
-            // Show the bookshelf overlay again after scanning
-            if (bookshelfOverlay) {
-                bookshelfOverlay.style.display = 'flex';
+            if (progress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    scanningOverlay.style.display = 'none';
+                    scanningLine.style.animation = 'none';
+                    detectBooks();
+                }, 500);
             }
-        }, 3000);
+        }, 20);
     }
 
-    // Scan button click handler
-    scanButton.addEventListener('click', startScanning);
+    function detectBooks() {
+        // Simulate book detection
+        const mockBooks = [
+            { id: 1, title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', price: 15.99 },
+            { id: 2, title: 'To Kill a Mockingbird', author: 'Harper Lee', price: 12.99 },
+            { id: 3, title: '1984', author: 'George Orwell', price: 14.99 }
+        ];
+        
+        displayDetectedBooks(mockBooks);
+    }
+
+    // Update scan button click handler
+    scanButton.addEventListener('click', () => {
+        startScanning();
+    });
 
     // Initialize camera when page loads
     initCamera();
