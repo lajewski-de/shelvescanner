@@ -5,10 +5,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const booksList = document.getElementById('booksList');
     const cartItems = document.getElementById('cartItems');
     const totalValue = document.getElementById('totalValue');
+    const addAllToCartButton = document.getElementById('addAllToCart');
     
     let stream = null;
     let cart = [];
     let isScanning = false;
+    let detectedBooks = [];
 
     // Mock book data for prototype
     const mockBooks = [
@@ -16,7 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 2, title: "To Kill a Mockingbird", price: 12.99 },
         { id: 3, title: "1984", price: 14.99 },
         { id: 4, title: "Pride and Prejudice", price: 11.99 },
-        { id: 5, title: "The Catcher in the Rye", price: 13.99 }
+        { id: 5, title: "The Catcher in the Rye", price: 13.99 },
+        { id: 6, title: "The Hobbit", price: 9.99 },
+        { id: 7, title: "Brave New World", price: 8.50 },
+        { id: 8, title: "The Alchemist", price: 7.75 },
+        { id: 9, title: "The Old Man and the Sea", price: 5.25 },
+        { id: 10, title: "Fahrenheit 451", price: 6.50 }
     ];
 
     // Initialize camera with permission handling
@@ -106,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function simulateBookDetection() {
         // Randomly select 2-4 books from our mock data
         const numBooks = Math.floor(Math.random() * 3) + 2;
-        const detectedBooks = [];
+        detectedBooks = [];
         
         for (let i = 0; i < numBooks; i++) {
             const randomBook = mockBooks[Math.floor(Math.random() * mockBooks.length)];
@@ -127,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
             bookElement.innerHTML = `
                 <div class="book-info">
                     <div class="book-title">${book.title}</div>
-                    <div class="book-price">$${book.price.toFixed(2)}</div>
+                    <div class="book-price">€${book.price.toFixed(2)}</div>
                 </div>
                 <button class="add-to-cart" data-book-id="${book.id}">Add to Cart</button>
             `;
@@ -166,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
             cartItem.innerHTML = `
                 <div class="book-info">
                     <div class="book-title">${book.title}</div>
-                    <div class="book-price">$${book.price.toFixed(2)}</div>
+                    <div class="book-price">€${book.price.toFixed(2)}</div>
                 </div>
                 <button class="remove-from-cart" data-book-id="${book.id}">Remove</button>
             `;
@@ -174,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
             total += book.price;
         });
 
-        totalValue.textContent = `$${total.toFixed(2)}`;
+        totalValue.textContent = `€${total.toFixed(2)}`;
         
         // Add event listeners to "Remove" buttons
         document.querySelectorAll('.remove-from-cart').forEach(button => {
@@ -269,8 +276,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
 
+    // Add all detected books to cart
+    function addAllToCart() {
+        detectedBooks.forEach(book => {
+            if (!cart.find(item => item.id === book.id)) {
+                cart.push(book);
+            }
+        });
+        updateCartDisplay();
+        
+        // Save cart to local storage
+        localStorage.setItem('shelveScannerCart', JSON.stringify(cart));
+    }
+
     // Scan button click handler
     scanButton.addEventListener('click', startScanning);
+    
+    // Add all to cart button click handler
+    addAllToCartButton.addEventListener('click', addAllToCart);
 
     // Initialize camera when page loads
     initCamera();
