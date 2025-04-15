@@ -205,11 +205,21 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay.innerHTML = `
             <div class="scanning-line"></div>
             <div class="scanning-text">Scanning bookshelf...</div>
-            <div class="scanning-progress">
-                <div class="progress-bar"></div>
-            </div>
         `;
         return overlay;
+    }
+
+    // Generate random price in EUR
+    function generateRandomPrice() {
+        return (Math.random() * 20).toFixed(2);
+    }
+
+    // Create price tag element
+    function createPriceTag(price) {
+        const priceTag = document.createElement('div');
+        priceTag.className = 'price-tag';
+        priceTag.textContent = `€${price}`;
+        return priceTag;
     }
 
     // Start scanning animation
@@ -227,7 +237,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Animate the scanning line
         const scanningLine = overlay.querySelector('.scanning-line');
-        const progressBar = overlay.querySelector('.progress-bar');
         
         // Animate the scanning line from left to right
         scanningLine.style.left = '0%';
@@ -235,13 +244,30 @@ document.addEventListener('DOMContentLoaded', function() {
             scanningLine.style.left = '100%';
         }, 100);
         
-        // Animate the progress bar
-        progressBar.style.width = '0%';
-        setTimeout(() => {
-            progressBar.style.width = '100%';
-        }, 100);
+        // Create and animate price tags
+        const priceTags = [];
+        const numPriceTags = 5;
         
-        // Simulate scanning time (3 seconds)
+        for (let i = 0; i < numPriceTags; i++) {
+            const price = generateRandomPrice();
+            const priceTag = createPriceTag(price);
+            overlay.appendChild(priceTag);
+            priceTags.push(priceTag);
+            
+            // Position price tags at random heights
+            const randomTop = Math.random() * 80 + 10; // 10% to 90% from top
+            priceTag.style.top = `${randomTop}%`;
+            
+            // Animate price tags to follow the scanning line
+            setTimeout(() => {
+                priceTag.style.left = '0%';
+                setTimeout(() => {
+                    priceTag.style.left = '100%';
+                }, 100);
+            }, i * 1000); // Stagger the appearance of price tags
+        }
+        
+        // Simulate scanning time (6 seconds)
         setTimeout(() => {
             // Remove scanning overlay
             overlay.remove();
@@ -255,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function() {
             scanButton.disabled = false;
             scanButton.textContent = 'Scan Bookshelf';
             isScanning = false;
-        }, 3000);
+        }, 6000);
     }
 
     // Scan button click handler
