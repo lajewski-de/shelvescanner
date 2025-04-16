@@ -108,15 +108,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Simulate book detection and show estimate
     function simulateBookDetection() {
-        // Generate random estimate between €100.00 and €250.00
-        const estimatedValue = (Math.random() * (250 - 100) + 100).toFixed(2);
+        // Generate random estimate between €9.50 and €45.20
+        const minEstimate = 9.50;
+        const maxEstimate = 45.20;
+        const estimate = (Math.random() * (maxEstimate - minEstimate) + minEstimate).toFixed(2);
         
         // Display the estimate
         document.getElementById('estimateValue').textContent = 
-            `Your books value has been estimated as: €${estimatedValue}`;
+            `Your books value has been estimated as: €${estimate}`;
         
         // Update the estimated price in the call-to-action button
-        document.getElementById('estimatedPrice').textContent = estimatedValue;
+        document.getElementById('estimatedPrice').textContent = estimate;
         
         // Set the correct app store link based on device type
         setAppStoreLink();
@@ -134,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Set the appropriate link
         if (isIOS) {
-            sellButton.href = `https://www.momox.de/verkaufen?estimatedValue=${estimatedValue}`;
+            sellButton.href = 'https://apps.apple.com/de/app/momox-second-hand-verkaufen/id414543719';
         } else {
             // Default to Android/Google Play
             sellButton.href = 'https://play.google.com/store/apps/details?id=de.momox';

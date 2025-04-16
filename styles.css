@@ -586,96 +586,20 @@ video:-ms-fullscreen::-webkit-media-controls {
 }
 
 @media (max-width: 480px) {
-    .camera-container {
-        height: 50vh;
-        min-height: 300px;
-        margin: 10px 0;
-    }
-
-    .camera-section {
-        padding: 10px;
-    }
-
-    .camera-section video {
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .bookshelf-guide {
-        width: 90%;
-        height: 90%;
-    }
-
-    .bookshelf-row {
-        height: 33.33%;
-    }
-
-    .scanning-line {
-        height: 2px;
-    }
-
-    .scanning-text {
-        font-size: 14px;
-    }
-
-    .progress-bar {
-        height: 3px;
-    }
-
-    .results-section {
-        padding: 15px;
-        margin-top: 10px;
-    }
-
     .results-section h2 {
         font-size: 16px;
         margin: 10px 0;
         padding: 8px;
     }
-
+    
     .download-app {
         margin: 15px 0;
         padding: 10px;
     }
-
+    
     .sell-on-momox-button {
         padding: 10px 15px;
         font-size: 14px;
         min-width: 200px;
-    }
-
-    #booksList {
-        margin-top: 10px;
-    }
-
-    .book-item {
-        padding: 10px;
-        margin: 5px 0;
-    }
-
-    .book-title {
-        font-size: 14px;
-    }
-
-    .book-price {
-        font-size: 14px;
-    }
-
-    .cart-section {
-        padding: 10px;
-    }
-
-    .cart-item {
-        padding: 8px;
-    }
-
-    .cart-total {
-        font-size: 16px;
-        padding: 10px;
-    }
-
-    .primary-button {
-        padding: 10px 15px;
-        font-size: 14px;
     }
 } 
