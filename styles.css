@@ -75,12 +75,15 @@ h2 {
     top: 0;
     left: 0;
     height: 100%;
-    width: 2px;
+    width: 3px;
     background-color: #3498db;
-    box-shadow: 0 0 8px #3498db;
+    box-shadow: 0 0 10px #3498db;
     transition: left 3s linear;
     z-index: 15;
     pointer-events: none;
+    opacity: 1;
+    transform: translateZ(0);
+    will-change: left;
 }
 
 .scanning-text {

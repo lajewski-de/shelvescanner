@@ -223,6 +223,10 @@ document.addEventListener('DOMContentLoaded', function() {
             scanningLine.style.transition = 'none';
             progressBar.style.transition = 'none';
             
+            // Reset positions
+            scanningLine.style.left = '0%';
+            progressBar.style.width = '0%';
+            
             // Force reflow
             scanningLine.offsetHeight;
             progressBar.offsetHeight;
@@ -232,16 +236,14 @@ document.addEventListener('DOMContentLoaded', function() {
             progressBar.style.transition = 'width 3s linear';
             
             // Animate the scanning line from left to right
-            scanningLine.style.left = '0%';
             setTimeout(() => {
                 scanningLine.style.left = '100%';
-            }, 100);
+            }, 50);
             
             // Animate the progress bar
-            progressBar.style.width = '0%';
             setTimeout(() => {
                 progressBar.style.width = '100%';
-            }, 100);
+            }, 50);
         }
     }
 
