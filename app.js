@@ -218,17 +218,31 @@ document.addEventListener('DOMContentLoaded', function() {
         const scanningLine = document.querySelector('.scanning-line');
         const progressBar = document.querySelector('.progress-bar');
         
-        // Animate the scanning line from left to right
-        scanningLine.style.left = '0%';
-        setTimeout(() => {
-            scanningLine.style.left = '100%';
-        }, 100);
-        
-        // Animate the progress bar
-        progressBar.style.width = '0%';
-        setTimeout(() => {
-            progressBar.style.width = '100%';
-        }, 100);
+        if (scanningLine && progressBar) {
+            // Reset animations
+            scanningLine.style.transition = 'none';
+            progressBar.style.transition = 'none';
+            
+            // Force reflow
+            scanningLine.offsetHeight;
+            progressBar.offsetHeight;
+            
+            // Start animations
+            scanningLine.style.transition = 'left 3s linear';
+            progressBar.style.transition = 'width 3s linear';
+            
+            // Animate the scanning line from left to right
+            scanningLine.style.left = '0%';
+            setTimeout(() => {
+                scanningLine.style.left = '100%';
+            }, 100);
+            
+            // Animate the progress bar
+            progressBar.style.width = '0%';
+            setTimeout(() => {
+                progressBar.style.width = '100%';
+            }, 100);
+        }
     }
 
     // Start scanning process
@@ -240,7 +254,10 @@ document.addEventListener('DOMContentLoaded', function() {
         scanButton.textContent = 'Scanning...';
         
         // Hide bookshelf guide
-        document.querySelector('.bookshelf-guide').style.display = 'none';
+        const bookshelfGuide = document.querySelector('.bookshelf-guide');
+        if (bookshelfGuide) {
+            bookshelfGuide.style.display = 'none';
+        }
         
         // Create and show scanning overlay
         const scanningOverlay = createScanningOverlay();
@@ -262,6 +279,11 @@ document.addEventListener('DOMContentLoaded', function() {
             scanButton.disabled = false;
             scanButton.textContent = 'Scan Bookshelf';
             isScanning = false;
+            
+            // Show the bookshelf guide again
+            if (bookshelfGuide) {
+                bookshelfGuide.style.display = 'flex';
+            }
         }, 3000);
     }
 

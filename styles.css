@@ -67,6 +67,7 @@ h2 {
     border-radius: 8px;
     z-index: 10;
     overflow: hidden;
+    pointer-events: none;
 }
 
 .scanning-line {
@@ -79,6 +80,7 @@ h2 {
     box-shadow: 0 0 8px #3498db;
     transition: left 3s linear;
     z-index: 15;
+    pointer-events: none;
 }
 
 .scanning-text {
@@ -87,6 +89,7 @@ h2 {
     font-weight: bold;
     margin-bottom: 20px;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
 }
 
 .scanning-progress {
@@ -96,6 +99,7 @@ h2 {
     border-radius: 5px;
     overflow: hidden;
     margin-top: 10px;
+    pointer-events: none;
 }
 
 .progress-bar {
@@ -103,6 +107,7 @@ h2 {
     background-color: #3498db;
     width: 0%;
     transition: width 3s linear;
+    pointer-events: none;
 }
 
 .primary-button {
