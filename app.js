@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let isScanning = false;
 
     // Initialize camera when page loads
-    initializeCamera();
+    initCamera();
 
     // Mock book data for prototype
     const mockBooks = [
@@ -214,6 +214,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Start scanning animation
+    function startScanningAnimation() {
+        const scanningLine = document.querySelector('.scanning-line');
+        const progressBar = document.querySelector('.progress-bar');
+        
+        // Animate the scanning line from left to right
+        scanningLine.style.left = '0%';
+        setTimeout(() => {
+            scanningLine.style.left = '100%';
+        }, 100);
+        
+        // Animate the progress bar
+        progressBar.style.width = '0%';
+        setTimeout(() => {
+            progressBar.style.width = '100%';
+        }, 100);
+    }
+
+    // Start scanning process
     function startScanning() {
         if (isScanning) return;
         
