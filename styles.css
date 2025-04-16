@@ -568,8 +568,8 @@ video:-ms-fullscreen::-webkit-media-controls {
     border-radius: 8px;
     font-weight: 500;
     transition: background-color 0.3s;
-    width: auto;
-    min-width: 220px;
+    width: 100%;
+    max-width: 300px;
     margin: 0 auto;
     border: none;
     -webkit-appearance: none;
@@ -600,6 +600,6 @@ video:-ms-fullscreen::-webkit-media-controls {
     .sell-on-momox-button {
         padding: 10px 15px;
         font-size: 14px;
-        min-width: 200px;
+        max-width: 280px;
     }
 } 
