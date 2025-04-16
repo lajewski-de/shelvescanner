@@ -336,21 +336,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load cart from local storage
     loadCart();
 
-    // Set up the momox button with the correct store link
-    const momoxButton = document.getElementById('sellOnMomoxButton');
-    if (momoxButton) {
-        momoxButton.href = getMomoxStoreLink();
-    }
-});
-
-// Add this function to detect the device type
-function isIOS() {
-    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-}
-
-// Add this function to get the appropriate store link
-function getMomoxStoreLink() {
-    return isIOS() 
-        ? 'https://apps.apple.com/de/app/momox-second-hand-verkaufen/id414543719'
-        : 'https://play.google.com/store/apps/details?id=de.momox';
-} 
+    // Momox button click handler
+    document.getElementById('sellOnMomoxButton').addEventListener('click', function(e) {
+        e.preventDefault();
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const momoxUrl = isIOS 
+            ? 'https://apps.apple.com/de/app/momox-second-hand-verkaufen/id414543719'
+            : 'https://play.google.com/store/apps/details?id=de.momox';
+        window.open(momoxUrl, '_blank');
+    });
+}); 
