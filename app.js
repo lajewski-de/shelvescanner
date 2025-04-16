@@ -108,17 +108,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Simulate book detection and show estimate
     function simulateBookDetection() {
-        // Generate random estimate between €9.50 and €45.20
-        const minEstimate = 9.50;
-        const maxEstimate = 45.20;
-        const estimate = (Math.random() * (maxEstimate - minEstimate) + minEstimate).toFixed(2);
-        
-        // Display the estimate
-        document.getElementById('estimateValue').textContent = 
-            `Your books value has been estimated as: €${estimate}`;
-        
-        // Update the estimated price in the call-to-action button
-        document.getElementById('estimatedPrice').textContent = estimate;
+        // Update estimated value
+        const estimatedValue = document.getElementById('estimatedPrice');
+        const minValue = 100.10;
+        const maxValue = 250.40;
+        const randomValue = (Math.random() * (maxValue - minValue) + minValue).toFixed(2);
+        estimatedValue.textContent = randomValue;
         
         // Set the correct app store link based on device type
         setAppStoreLink();
