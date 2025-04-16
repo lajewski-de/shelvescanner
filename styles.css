@@ -602,4 +602,28 @@ video:-ms-fullscreen::-webkit-media-controls {
         font-size: 14px;
         min-width: 200px;
     }
+}
+
+.camera-guide-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px 20px;
+    border-radius: 8px;
+    z-index: 2;
+    pointer-events: none;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 480px) {
+    .camera-guide-text {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
 } 
