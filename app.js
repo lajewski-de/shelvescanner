@@ -109,35 +109,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Simulate book detection and show estimate
     function simulateBookDetection() {
         // Update estimated value
-        const estimatedValue = document.getElementById('estimatedPrice');
         const minValue = 100.10;
         const maxValue = 250.40;
         const randomValue = (Math.random() * (maxValue - minValue) + minValue).toFixed(2);
-        estimatedValue.textContent = randomValue;
+        
+        // Update both the heading and the button price
+        document.getElementById('estimateValue').textContent = `Your estimated books value: €${randomValue}`;
+        document.getElementById('estimatedPrice').textContent = randomValue;
         
         // Set the correct app store link based on device type
-        setAppStoreLink();
-        
-        // Show results section
-        resultsSection.style.display = 'block';
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const momoxUrl = isIOS 
+            ? 'https://apps.apple.com/de/app/momox-second-hand-verkaufen/id414543719'
+            : 'https://play.google.com/store/apps/details?id=de.momox';
+        document.getElementById('sellOnMomoxButton').href = momoxUrl;
     }
     
-    // Set the correct app store link based on device type
-    function setAppStoreLink() {
-        const sellButton = document.getElementById('sellOnMomoxButton');
-        
-        // Check if the device is iOS
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        
-        // Set the appropriate link
-        if (isIOS) {
-            sellButton.href = 'https://apps.apple.com/de/app/momox-second-hand-verkaufen/id414543719';
-        } else {
-            // Default to Android/Google Play
-            sellButton.href = 'https://play.google.com/store/apps/details?id=de.momox';
-        }
-    }
-
     // Display detected books
     function displayBooks(books) {
         booksList.innerHTML = '';
