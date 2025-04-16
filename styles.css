@@ -494,4 +494,55 @@ video:-ms-fullscreen::-webkit-media-controls {
 #addAllToCart:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
+}
+
+.estimate-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.download-app {
+    text-align: center;
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.download-app p {
+    font-size: 18px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.app-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.app-store-button,
+.play-store-button {
+    display: inline-block;
+    transition: transform 0.2s;
+}
+
+.app-store-button:hover,
+.play-store-button:hover {
+    transform: scale(1.05);
+}
+
+.app-store-button img,
+.play-store-button img {
+    height: 40px;
+    width: auto;
 } 

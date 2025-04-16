@@ -2,15 +2,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const video = document.getElementById('camera');
     const scanButton = document.getElementById('scanButton');
     const resultsSection = document.getElementById('resultsSection');
-    const booksList = document.getElementById('booksList');
-    const cartItems = document.getElementById('cartItems');
-    const totalValue = document.getElementById('totalValue');
-    const addAllToCartButton = document.getElementById('addAllToCart');
     
     let stream = null;
-    let cart = [];
     let isScanning = false;
-    let detectedBooks = [];
+
+    // Initialize camera when page loads
+    initializeCamera();
 
     // Mock book data for prototype
     const mockBooks = [
@@ -109,20 +106,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Simulate book detection
+    // Simulate book detection and show estimate
     function simulateBookDetection() {
-        // Randomly select 2-4 books from our mock data
-        const numBooks = Math.floor(Math.random() * 3) + 2;
-        detectedBooks = [];
+        // Generate random estimate between €9.50 and €45.20
+        const minEstimate = 9.50;
+        const maxEstimate = 45.20;
+        const estimate = (Math.random() * (maxEstimate - minEstimate) + minEstimate).toFixed(2);
         
-        for (let i = 0; i < numBooks; i++) {
-            const randomBook = mockBooks[Math.floor(Math.random() * mockBooks.length)];
-            if (!detectedBooks.find(book => book.id === randomBook.id)) {
-                detectedBooks.push(randomBook);
-            }
-        }
+        // Display the estimate
+        document.getElementById('estimateValue').textContent = 
+            `Your books value has been estimated as: €${estimate}`;
         
-        return detectedBooks;
+        // Show results section
+        resultsSection.style.display = 'block';
     }
 
     // Display detected books
@@ -225,52 +221,29 @@ document.addEventListener('DOMContentLoaded', function() {
         scanButton.disabled = true;
         scanButton.textContent = 'Scanning...';
         
-        // Hide the bookshelf guide
-        const bookshelfGuide = document.querySelector('.bookshelf-guide');
-        if (bookshelfGuide) {
-            bookshelfGuide.style.display = 'none';
-        }
+        // Hide bookshelf guide
+        document.querySelector('.bookshelf-guide').style.display = 'none';
         
-        // Create and add scanning overlay
-        const overlay = createScanningOverlay();
+        // Create and show scanning overlay
+        const scanningOverlay = createScanningOverlay();
         const cameraContainer = document.querySelector('.camera-container');
-        cameraContainer.appendChild(overlay);
+        cameraContainer.appendChild(scanningOverlay);
         
-        // Animate the scanning line
-        const scanningLine = overlay.querySelector('.scanning-line');
-        const progressBar = overlay.querySelector('.progress-bar');
+        // Start scanning animation
+        startScanningAnimation();
         
-        // Animate the scanning line from left to right
-        scanningLine.style.left = '0%';
-        setTimeout(() => {
-            scanningLine.style.left = '100%';
-        }, 100);
-        
-        // Animate the progress bar
-        progressBar.style.width = '0%';
-        setTimeout(() => {
-            progressBar.style.width = '100%';
-        }, 100);
-        
-        // Simulate scanning time (3 seconds)
+        // Simulate scanning process
         setTimeout(() => {
             // Remove scanning overlay
-            overlay.remove();
+            scanningOverlay.remove();
             
-            // Show results
-            const detectedBooks = simulateBookDetection();
-            displayBooks(detectedBooks);
-            resultsSection.style.display = 'block';
+            // Show estimate
+            simulateBookDetection();
             
             // Reset button
             scanButton.disabled = false;
             scanButton.textContent = 'Scan Bookshelf';
             isScanning = false;
-            
-            // Show the bookshelf guide again
-            if (bookshelfGuide) {
-                bookshelfGuide.style.display = 'flex';
-            }
         }, 3000);
     }
 
