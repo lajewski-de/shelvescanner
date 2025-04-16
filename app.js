@@ -119,15 +119,30 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show results section
         resultsSection.style.display = 'block';
+        
+        // Display appropriate app store links based on device
+        displayAppStoreLinks();
+    }
+    
+    // Display app store links based on device type
+    function displayAppStoreLinks() {
+        const appButtons = document.getElementById('appButtons');
+        appButtons.innerHTML = `
+            <a href="#" class="app-store-button">
+                <img src="assets/app-store.png" alt="App Store">
+                <span>Download on the App Store</span>
+            </a>
+            <a href="#" class="play-store-button">
+                <img src="assets/play-store.png" alt="Play Store">
+                <span>Get it on Google Play</span>
+            </a>
+        `;
     }
 
     // Display detected books
     function displayBooks(books) {
+        const booksList = document.getElementById('booksList');
         booksList.innerHTML = '';
-        
-        // Calculate total price of detected books
-        const total = books.reduce((sum, book) => sum + book.price, 0);
-        document.getElementById('detectedTotal').textContent = `Total: €${total.toFixed(2)}`;
         
         books.forEach(book => {
             const bookElement = document.createElement('div');
@@ -135,14 +150,16 @@ document.addEventListener('DOMContentLoaded', function() {
             bookElement.innerHTML = `
                 <div class="book-info">
                     <h3>${book.title}</h3>
-                    <p class="book-price">€${book.price.toFixed(2)}</p>
+                    <p class="price">€${book.price.toFixed(2)}</p>
                 </div>
-                <button class="add-to-cart" onclick="addToCart(${book.id})">Add to Cart</button>
+                <button class="add-to-cart" onclick="addToCart('${book.title}', ${book.price})">
+                    Add to Cart
+                </button>
             `;
             booksList.appendChild(bookElement);
         });
         
-        resultsSection.style.display = 'block';
+        createAppStoreButtons();
     }
 
     // Add book to cart
@@ -313,4 +330,33 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Load cart from local storage
     loadCart();
+
+    function createAppStoreButtons() {
+        const appButtonsContainer = document.getElementById('appButtons');
+        appButtonsContainer.innerHTML = `
+            <div class="app-buttons">
+                <a href="#" class="app-store-button" id="appStoreButton">
+                    <img src="assets/app-store-icon.png" alt="App Store">
+                    Download on the App Store
+                </a>
+                <a href="#" class="app-store-button play-store-button" id="playStoreButton">
+                    <img src="assets/play-store-icon.png" alt="Play Store">
+                    Get it on Google Play
+                </a>
+            </div>
+        `;
+
+        // Add event listeners for the buttons
+        document.getElementById('appStoreButton').addEventListener('click', (e) => {
+            e.preventDefault();
+            // Replace with actual App Store link when available
+            alert('App Store link will be available soon!');
+        });
+
+        document.getElementById('playStoreButton').addEventListener('click', (e) => {
+            e.preventDefault();
+            // Replace with actual Play Store link when available
+            alert('Play Store link will be available soon!');
+        });
+    }
 }); 
