@@ -561,7 +561,6 @@ video:-ms-fullscreen::-webkit-media-controls {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
     padding: 12px 20px;
     background-color: #4CAF50;
     color: white;
@@ -586,12 +585,6 @@ video:-ms-fullscreen::-webkit-media-controls {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.sell-on-momox-button img {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
-}
-
 @media (max-width: 480px) {
     .results-section h2 {
         font-size: 16px;
@@ -608,10 +601,5 @@ video:-ms-fullscreen::-webkit-media-controls {
         padding: 10px 15px;
         font-size: 14px;
         min-width: 200px;
-    }
-    
-    .sell-on-momox-button img {
-        width: 20px;
-        height: 20px;
     }
 } 
