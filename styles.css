@@ -18,12 +18,10 @@ body {
 }
 
 h1 {
-    font-size: 24px;
+    margin: 0 0 20px 0;
     color: #2c3e50;
+    font-size: 24px;
     text-align: center;
-    margin: 20px 0;
-    padding: 0 15px;
-    line-height: 1.4;
 }
 
 h2 {
@@ -375,31 +373,6 @@ h2 {
     }
 }
 
-@media (max-width: 480px) {
-    h1 {
-        font-size: 20px;
-        margin: 15px 0;
-        padding: 0 10px;
-    }
-    
-    .results-section h2 {
-        font-size: 16px;
-        margin: 10px 0;
-        padding: 8px;
-    }
-    
-    .download-app {
-        margin: 15px 0;
-        padding: 10px;
-    }
-    
-    .sell-on-momox-button {
-        padding: 10px 15px;
-        font-size: 14px;
-        min-width: 200px;
-    }
-}
-
 /* Hide video controls */
 video::-webkit-media-controls {
     display: none !important;
@@ -610,4 +583,23 @@ video:-ms-fullscreen::-webkit-media-controls {
 .sell-on-momox-button:hover {
     background-color: #45a049;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 480px) {
+    .results-section h2 {
+        font-size: 16px;
+        margin: 10px 0;
+        padding: 8px;
+    }
+    
+    .download-app {
+        margin: 15px 0;
+        padding: 10px;
+    }
+    
+    .sell-on-momox-button {
+        padding: 10px 15px;
+        font-size: 14px;
+        min-width: 200px;
+    }
 } 
