@@ -269,68 +269,45 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Initialize momox button as inactive
-    const momoxButton = document.getElementById('sellOnMomoxButton');
-    momoxButton.classList.add('inactive');
-
-    // Momox button click handler
-    momoxButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        if (this.classList.contains('inactive')) return;
-        
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        const momoxUrl = isIOS 
-            ? 'https://apps.apple.com/de/app/momox-second-hand-verkaufen/id414543719'
-            : 'https://play.google.com/store/apps/details?id=de.momox';
-        window.open(momoxUrl, '_blank');
-    });
-
-    // Function to activate momox button
-    function activateMomoxButton() {
-        momoxButton.classList.remove('inactive');
-    }
-
-    // Update the startScanning function to activate the button
+    // Start scanning process
     function startScanning() {
-        const scanButton = document.getElementById('scanButton');
-        const bookshelfGuide = document.querySelector('.bookshelf-guide');
-        const scanningOverlay = createScanningOverlay();
+        if (isScanning) return;
         
-        // Disable scan button and hide guide
+        isScanning = true;
         scanButton.disabled = true;
         scanButton.textContent = 'Scanning...';
+        
+        // Hide bookshelf guide
+        const bookshelfGuide = document.querySelector('.bookshelf-guide');
         if (bookshelfGuide) {
             bookshelfGuide.style.display = 'none';
         }
         
-        // Add scanning overlay
-        document.querySelector('.camera-container').appendChild(scanningOverlay);
+        // Create and show scanning overlay
+        const scanningOverlay = createScanningOverlay();
+        const cameraContainer = document.querySelector('.camera-container');
+        cameraContainer.appendChild(scanningOverlay);
         
         // Start scanning animation
-        const scanningLine = scanningOverlay.querySelector('.scanning-line');
-        const progressBar = scanningOverlay.querySelector('.progress-bar');
-        
-        scanningLine.style.animation = 'scan 3s linear forwards';
-        progressBar.style.width = '100%';
+        startScanningAnimation();
         
         // Simulate scanning process
         setTimeout(() => {
             // Remove scanning overlay
             scanningOverlay.remove();
             
-            // Show results
-            document.getElementById('cameraSection').style.display = 'none';
-            document.getElementById('resultsSection').style.display = 'block';
+            // Show estimate
+            simulateBookDetection();
             
-            // Display mock books
-            displayBooks(mockBooks);
-            
-            // Activate momox button
-            activateMomoxButton();
-            
-            // Reset scan button
+            // Reset button
             scanButton.disabled = false;
             scanButton.textContent = 'Scan Bookshelf';
+            isScanning = false;
+            
+            // Show the bookshelf guide again
+            if (bookshelfGuide) {
+                bookshelfGuide.style.display = 'flex';
+            }
         }, 3000);
     }
 
@@ -358,4 +335,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Load cart from local storage
     loadCart();
+
+    // Momox button click handler
+    document.getElementById('sellOnMomoxButton').addEventListener('click', function(e) {
+        e.preventDefault();
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const momoxUrl = isIOS 
+            ? 'https://apps.apple.com/de/app/momox-second-hand-verkaufen/id414543719'
+            : 'https://play.google.com/store/apps/details?id=de.momox';
+        window.open(momoxUrl, '_blank');
+    });
 }); 
