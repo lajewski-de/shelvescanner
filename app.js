@@ -351,7 +351,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 : 'https://play.google.com/store/apps/details?id=de.momox';
             
             // Redirect to the store
-            window.location.href = storeLink;
+            window.location.replace(storeLink);
         });
     }
 }); 
