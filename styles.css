@@ -522,6 +522,9 @@ video:-ms-fullscreen::-webkit-media-controls {
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .download-app p {
@@ -559,7 +562,7 @@ video:-ms-fullscreen::-webkit-media-controls {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 10px 15px;
+    padding: 12px 20px;
     background-color: #4CAF50;
     color: white;
     text-decoration: none;
@@ -567,23 +570,25 @@ video:-ms-fullscreen::-webkit-media-controls {
     font-weight: 500;
     transition: background-color 0.3s;
     width: auto;
-    min-width: 200px;
+    min-width: 220px;
     margin: 0 auto;
     border: none;
     -webkit-appearance: none;
     appearance: none;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.4;
     white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .sell-on-momox-button:hover {
     background-color: #45a049;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .sell-on-momox-button img {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     object-fit: contain;
 }
 
@@ -600,8 +605,13 @@ video:-ms-fullscreen::-webkit-media-controls {
     }
     
     .sell-on-momox-button {
-        padding: 8px 12px;
-        font-size: 13px;
-        min-width: 180px;
+        padding: 10px 15px;
+        font-size: 14px;
+        min-width: 200px;
+    }
+    
+    .sell-on-momox-button img {
+        width: 20px;
+        height: 20px;
     }
 } 
