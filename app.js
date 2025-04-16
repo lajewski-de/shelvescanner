@@ -1,39 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Set momox store link based on device
-    function updateMomoxLink() {
-        const momoxButton = document.getElementById('sellOnMomoxButton');
-        if (momoxButton) {
-            // More reliable iOS detection
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-            
-            momoxButton.href = isIOS 
-                ? 'https://apps.apple.com/de/app/momox-second-hand-verkaufen/id414543719'
-                : 'https://play.google.com/store/apps/details?id=de.momox';
-        }
-    }
-
-    // Call the function immediately
-    updateMomoxLink();
-    
-    // Also update on orientation change (for iOS devices)
-    window.addEventListener('orientationchange', updateMomoxLink);
-
-    // Get DOM elements
-    const startButton = document.getElementById('startButton');
+    const video = document.getElementById('camera');
     const scanButton = document.getElementById('scanButton');
-    const cameraSection = document.getElementById('cameraSection');
     const resultsSection = document.getElementById('resultsSection');
-    const video = document.getElementById('cameraFeed');
-    const booksList = document.getElementById('booksList');
-    const cartCount = document.getElementById('cartCount');
-    const cartTotal = document.getElementById('cartTotal');
-    const cartItems = document.getElementById('cartItems');
-    const cartSection = document.getElementById('cartSection');
-    const toggleCartButton = document.getElementById('toggleCartButton');
-    const clearCartButton = document.getElementById('clearCartButton');
-    const estimatedPrice = document.getElementById('estimatedPrice');
-    const estimateValue = document.getElementById('estimateValue');
     
     let stream = null;
     let isScanning = false;
@@ -367,4 +335,22 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Load cart from local storage
     loadCart();
-}); 
+
+    // Set up the momox button with the correct store link
+    const momoxButton = document.getElementById('sellOnMomoxButton');
+    if (momoxButton) {
+        momoxButton.href = getMomoxStoreLink();
+    }
+});
+
+// Add this function to detect the device type
+function isIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+}
+
+// Add this function to get the appropriate store link
+function getMomoxStoreLink() {
+    return isIOS() 
+        ? 'https://apps.apple.com/de/app/momox-second-hand-verkaufen/id414543719'
+        : 'https://play.google.com/store/apps/details?id=de.momox';
+} 
