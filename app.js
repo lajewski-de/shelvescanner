@@ -337,11 +337,22 @@ document.addEventListener('DOMContentLoaded', function() {
     loadCart();
 
     // Set momox store link based on device
-    const momoxButton = document.getElementById('sellOnMomoxButton');
-    if (momoxButton) {
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        momoxButton.href = isIOS 
-            ? 'https://apps.apple.com/de/app/momox-second-hand-verkaufen/id414543719'
-            : 'https://play.google.com/store/apps/details?id=de.momox';
+    function updateMomoxLink() {
+        const momoxButton = document.getElementById('sellOnMomoxButton');
+        if (momoxButton) {
+            // More reliable iOS detection
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            
+            momoxButton.href = isIOS 
+                ? 'https://apps.apple.com/de/app/momox-second-hand-verkaufen/id414543719'
+                : 'https://play.google.com/store/apps/details?id=de.momox';
+        }
     }
+
+    // Call the function when the page loads
+    updateMomoxLink();
+    
+    // Also update on orientation change (for iOS devices)
+    window.addEventListener('orientationchange', updateMomoxLink);
 }); 
